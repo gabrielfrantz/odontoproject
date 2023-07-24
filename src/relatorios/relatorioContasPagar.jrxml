@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="relatorioContasPagar" language="groovy" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="dbdb9b5c-91aa-4e56-b6b9-aaeb86405447">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="status" class="java.lang.Integer">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[SELECT contas_pagar.id,data_compra,data_vencimento,valor_total_tela,
+valor_pago,valor_atualizado,fornecedor.nome,
+CASE status
+    when 0 then 'Abertas'
+    when 1 then 'Pagas'
+END
+FROM contas_pagar,fornecedor
+WHERE status = $P{status} AND contas_pagar.fornecedor_id = fornecedor.id]]>
+	</queryString>
+	<field name="id" class="java.lang.Integer"/>
+	<field name="data_compra" class="java.sql.Date"/>
+	<field name="data_vencimento" class="java.sql.Date"/>
+	<field name="valor_total_tela" class="java.math.BigDecimal"/>
+	<field name="valor_pago" class="java.math.BigDecimal"/>
+	<field name="valor_atualizado" class="java.math.BigDecimal"/>
+	<field name="nome" class="java.lang.String"/>
+	<field name="case" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="79" splitType="Stretch">
+			<staticText>
+				<reportElement x="141" y="10" width="507" height="33" uuid="55d2b7d0-2eae-48f5-ad1b-dfd5f536820e"/>
+				<textElement>
+					<font fontName="Arial" size="20" isBold="true"/>
+				</textElement>
+				<text><![CDATA[RELATÓRIO DE CONTAS A PAGAR - POR STATUS]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="387" y="59" width="122" height="20" uuid="3ab2f86c-bffb-4fbd-aaa1-c8b99d74c545"/>
+				<textElement textAlignment="Justified" verticalAlignment="Middle">
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{case}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="297" y="59" width="90" height="20" uuid="93291ca6-1eef-4b26-9fdd-8594fd085ead"/>
+				<textElement textAlignment="Justified" verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Status Pagar:]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="35" splitType="Stretch">
+			<line>
+				<reportElement x="0" y="15" width="802" height="1" uuid="af5a2643-eb9f-41db-b7c1-f9e3aef15de4"/>
+			</line>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="61" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="17" width="47" height="20" uuid="acb4e195-58a5-4cc3-9645-08cf34938de4"/>
+				<textElement textAlignment="Justified" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Código]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="59" y="17" width="82" height="20" uuid="6691388c-aebf-4623-acb4-0f6f4b8cfc9c"/>
+				<textElement textAlignment="Justified" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Data da Compra]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="158" y="17" width="100" height="20" uuid="2b504c85-7c78-4b39-a875-535683036b7f"/>
+				<textElement textAlignment="Justified" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Data de Vencimento]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="282" y="17" width="77" height="20" uuid="0ccdefb5-23dd-4530-99e4-269d2e5681cb"/>
+				<textElement textAlignment="Justified" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Valor Total]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="497" y="17" width="81" height="20" uuid="177f0465-9db0-4a53-a65e-08b25abc9cf5"/>
+				<textElement textAlignment="Justified" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Valor Atualizado]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="625" y="17" width="81" height="20" uuid="f594cb16-25e9-4e4c-aa6a-01c955dcd09d"/>
+				<textElement textAlignment="Justified" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Fornecedor]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="749" y="17" width="53" height="20" uuid="c14cc1bb-23b9-4187-8b76-9c94d2db219b"/>
+				<textElement textAlignment="Justified" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Status]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="375" y="17" width="100" height="20" uuid="4f025da2-a338-4554-a16c-1e32fdd9c483"/>
+				<textElement textAlignment="Justified" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Valor Pago]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="125" splitType="Stretch">
+			<textField>
+				<reportElement x="12" y="48" width="47" height="20" uuid="85504ee0-3292-4bd2-9e92-ab28679024c5"/>
+				<textElement textAlignment="Justified" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{id}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="76" y="48" width="65" height="20" uuid="8e33f56c-26d1-49a1-9053-5e4a6b23ef04"/>
+				<textElement textAlignment="Justified" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[new java.text.SimpleDateFormat("dd/MM/yyyy").format($F{data_compra})]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="173" y="48" width="71" height="20" uuid="af816016-da39-477e-984a-2cdfa1d39e12"/>
+				<textElement textAlignment="Justified" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[new java.text.SimpleDateFormat("dd/MM/yyyy").format($F{data_vencimento})]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="292" y="48" width="57" height="20" uuid="5f00e33b-fd49-45fc-952e-aa0f919f322e"/>
+				<textElement textAlignment="Justified" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{valor_total_tela}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="520" y="48" width="58" height="20" uuid="6ba14503-9a5f-447a-b57b-3991567e124b"/>
+				<textElement textAlignment="Justified" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{valor_atualizado}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="749" y="48" width="36" height="20" uuid="723ebbd8-3362-4348-9759-762caf053ea3"/>
+				<textElement textAlignment="Justified" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{case}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="397" y="48" width="100" height="20" uuid="ba239781-a069-40b5-94d6-91b4bd251196"/>
+				<textElement textAlignment="Justified" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{valor_pago}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="606" y="48" width="100" height="20" uuid="a5655348-ff60-44e0-a5c4-e50696d89d8d"/>
+				<textFieldExpression><![CDATA[$F{nome}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="54" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>

@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="relatorioValorRecebidoPorPeriodoSub" language="groovy" pageWidth="555" pageHeight="802" columnWidth="555" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="25ec9c0b-2b22-4550-8e2b-94a3a381acf9">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="dataDe" class="java.util.Date">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="dataAte" class="java.util.Date">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="dataDeVis" class="java.lang.String"/>
+	<parameter name="dataAteVis" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[SELECT SUM(valor_recebido) AS total
+FROM contas_receber WHERE data_vencimento BETWEEN $P{dataDe} AND $P{dataAte}]]>
+	</queryString>
+	<field name="total" class="java.math.BigDecimal"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="79" splitType="Stretch">
+			<textField>
+				<reportElement x="0" y="0" width="555" height="79" uuid="08b441da-08be-46f7-8fe3-70c5aa72c053"/>
+				<textElement verticalAlignment="Top">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{total}]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+</jasperReport>

@@ -1,0 +1,5 @@
+SELECT SUM(valor_recebido) AS total
+FROM contas_receber WHERE data_vencimento BETWEEN '2019-06-16' AND '2019-06-16'
+
+SELECT *
+FROM contas_receber WHERE data_vencimento BETWEEN '2019-06-16' AND '2019-06-16' GROUP BY contas_receber.id

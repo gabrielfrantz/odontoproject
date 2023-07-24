@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="listagemCadastroDentistas" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="2c3e37c6-54cf-40b0-91c8-6498b5db5f4c">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<queryString>
+		<![CDATA[SELECT * FROM dentista]]>
+	</queryString>
+	<field name="id" class="java.lang.Integer"/>
+	<field name="dentista" class="java.lang.String"/>
+	<field name="cro" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="79" splitType="Stretch">
+			<staticText>
+				<reportElement x="147" y="15" width="276" height="51" uuid="04407eda-e79f-448d-95f3-f62da68e2385"/>
+				<textElement textAlignment="Justified" verticalAlignment="Middle">
+					<font size="24" isBold="true"/>
+				</textElement>
+				<text><![CDATA[LISTA DOS DENTISTAS]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="35" splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="61" splitType="Stretch">
+			<staticText>
+				<reportElement x="92" y="15" width="100" height="20" uuid="1e08f29b-85d0-4c67-9588-3e249ebac0f4"/>
+				<textElement textAlignment="Justified" verticalAlignment="Middle"/>
+				<text><![CDATA[Código]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="225" y="15" width="100" height="20" uuid="23478e3e-480f-4bfe-86d8-6abc6ffd3b30"/>
+				<textElement textAlignment="Justified" verticalAlignment="Middle"/>
+				<text><![CDATA[Dentista]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="407" y="15" width="100" height="20" uuid="1ed6a742-bb19-4d1c-a8c2-197b900c285c"/>
+				<textElement textAlignment="Justified" verticalAlignment="Middle"/>
+				<text><![CDATA[CRO]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="125" splitType="Stretch">
+			<textField>
+				<reportElement x="108" y="65" width="55" height="20" uuid="91ced18a-e76e-4b67-88eb-717feb5fd671"/>
+				<textElement textAlignment="Justified" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{id}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="215" y="65" width="100" height="20" uuid="b678a69e-6129-4d28-8f04-09532c5e1cd6"/>
+				<textElement textAlignment="Justified" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{dentista}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="407" y="65" width="100" height="20" uuid="b1bf930c-5dad-422b-b2c6-11362df39ece"/>
+				<textElement textAlignment="Justified" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{cro}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="54" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>

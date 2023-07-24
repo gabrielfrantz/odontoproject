@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="relatorioAgendamentoPorPeriodo" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="e88f851e-8d85-404e-ab9e-1bf039186cfb">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="dataDe" class="java.util.Date">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="dataAte" class="java.util.Date">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="dataDeVis" class="java.lang.String"/>
+	<parameter name="dataAteVis" class="java.lang.String"/>
+	<parameter name="dentista" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[SELECT agendamento.id,paciente.nome, data, hora_inicio, hora_fim, descricao, dentista
+FROM agendamento
+INNER JOIN paciente ON agendamento.paciente_id = paciente.id
+INNER JOIN procedimento ON agendamento.procedimento_id = procedimento.id
+INNER JOIN dentista ON agendamento.dentista_id = dentista.id
+WHERE agendamento.data BETWEEN $P{dataDe} AND $P{dataAte} ORDER BY data,hora_inicio,hora_fim]]>
+	</queryString>
+	<field name="id" class="java.lang.Integer"/>
+	<field name="nome" class="java.lang.String"/>
+	<field name="data" class="java.sql.Date"/>
+	<field name="hora_inicio" class="java.sql.Time"/>
+	<field name="hora_fim" class="java.sql.Time"/>
+	<field name="descricao" class="java.lang.String"/>
+	<field name="dentista" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="79" splitType="Stretch">
+			<staticText>
+				<reportElement x="38" y="27" width="507" height="33" uuid="c76ed4da-6889-4d6c-a2fc-5ac9e293b637"/>
+				<textElement>
+					<font fontName="Arial" size="20" isBold="true"/>
+				</textElement>
+				<text><![CDATA[RELATÓRIO DE AGENDAMENTOS - POR PERÍODO]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="54" splitType="Stretch">
+			<staticText>
+				<reportElement x="113" y="0" width="81" height="20" uuid="9414cf8c-1557-41b1-911e-5d62f66b4972"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Período de:  ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="324" y="0" width="41" height="20" uuid="7edb2ca7-783d-4b2c-8838-5d7a002696a4"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Até:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="194" y="0" width="100" height="20" uuid="874e7806-cef8-4ea8-acfe-ef2a5ab70ac5"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{dataDeVis}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="365" y="0" width="100" height="20" uuid="035d4afb-e74e-4d71-84d8-a7dccd92d1fe"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{dataAteVis}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="0" y="37" width="555" height="1" uuid="1c862afa-3393-4d04-a6f3-4fdbe1a9dd35"/>
+			</line>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="61" splitType="Stretch">
+			<staticText>
+				<reportElement x="16" y="22" width="38" height="20" uuid="059a7ca2-7506-484a-8b73-a04d383080e3"/>
+				<textElement textAlignment="Justified" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Código]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="65" y="22" width="100" height="20" uuid="4985bf4f-088e-4615-ae7c-5dd37c0e2370"/>
+				<textElement textAlignment="Justified" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Paciente]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="178" y="22" width="52" height="20" uuid="181ac899-07a3-4a1c-8923-32fa8b0070b0"/>
+				<textElement textAlignment="Justified" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Data]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="230" y="22" width="43" height="20" uuid="9f400e3e-74f8-40ad-ab37-eeb50f6bdfa2"/>
+				<textElement textAlignment="Justified" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Início]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="355" y="22" width="100" height="20" uuid="24c577a0-d4fb-4db2-8788-4235c6c558d1"/>
+				<textElement textAlignment="Justified" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Procedimento]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="455" y="22" width="100" height="20" uuid="9e7122ce-247b-43f0-bdea-c7f792abdcac"/>
+				<textElement textAlignment="Justified" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Dentista]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="295" y="22" width="41" height="20" uuid="3db6d34c-1088-419c-8de8-b29893b646c5"/>
+				<textElement textAlignment="Justified" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Fim]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="125" splitType="Stretch">
+			<textField>
+				<reportElement x="27" y="51" width="38" height="20" uuid="499f90b8-e85a-43c1-b976-e7fd16afc028"/>
+				<textElement textAlignment="Justified" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{id}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="65" y="51" width="100" height="20" uuid="1315af4b-04b6-4e23-8908-2a9a81728cf0"/>
+				<textElement textAlignment="Justified" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{nome}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="165" y="51" width="52" height="20" uuid="86e7cba0-4dbe-4db1-b72e-180b9c63a1fa"/>
+				<textElement textAlignment="Justified" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[new java.text.SimpleDateFormat("dd/MM/yyyy").format($F{data})]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="230" y="51" width="59" height="20" uuid="2c7bc4a3-1188-42f0-919a-1f2005e201c0"/>
+				<textElement textAlignment="Justified" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[new java.text.SimpleDateFormat("HH:mm").format($F{hora_inicio})]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="365" y="51" width="100" height="20" uuid="19d7390b-e8ea-449b-acd8-586f52d154e0"/>
+				<textElement textAlignment="Justified" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{descricao}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="455" y="51" width="100" height="20" uuid="f4a3be86-7220-409e-8419-32eec6774f7e"/>
+				<textElement textAlignment="Justified" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{dentista}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="295" y="51" width="60" height="20" uuid="2ba8d358-b336-4170-a61d-779063f39a6e"/>
+				<textElement textAlignment="Justified" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[new java.text.SimpleDateFormat("HH:mm").format($F{hora_fim})]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="54" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>

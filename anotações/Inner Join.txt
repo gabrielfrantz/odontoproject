@@ -1,0 +1,6 @@
+SELECT paciente.nome, data, hora, descricao, dentista
+FROM agendamento
+INNER JOIN paciente ON agendamento.paciente_id = paciente.id
+INNER JOIN procedimento ON agendamento.procedimento_id = procedimento.id
+INNER JOIN dentista ON agendamento.dentista_id = dentista.id
+WHERE data BETWEEN $P{periodoDe} AND $P{periodoAte} ORDER BY data,hora

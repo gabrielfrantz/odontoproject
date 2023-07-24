@@ -1,0 +1,169 @@
+--Tabela paciente--
+CREATE TABLE IF NOT EXISTS paciente (
+id SERIAL NOT NULL,
+nome VARCHAR(100) NOT NULL,
+data_nascimento DATE NOT NULL,
+telefone VARCHAR(15) NOT NULL,
+cpf VARCHAR(14) NOT NULL,
+tipo_longradouro VARCHAR(45) NOT NULL,
+longradouro VARCHAR(100) NOT NULL,
+numero VARCHAR(6) NOT NULL,
+complemento VARCHAR(45) NULL,
+bairro VARCHAR(50) NOT NULL,
+cidade VARCHAR(50) NOT NULL,
+estado VARCHAR(50) NOT NULL,
+uf VARCHAR(2) NOT NULL,
+PRIMARY KEY (id),
+CONSTRAINT uk_paciente_cpf UNIQUE (cpf)
+);
+
+--Tabela usuario--
+CREATE TABLE IF NOT EXISTS usuario (
+id SERIAL NOT NULL,
+email VARCHAR(100) NOT NULL,
+senha VARCHAR(45) NOT NULL,
+PRIMARY KEY (id)
+);
+
+--Tabela fornecedor--
+CREATE TABLE IF NOT EXISTS fornecedor (
+id SERIAL NOT NULL,
+nome VARCHAR(100) NOT NULL,
+email VARCHAR(100) NOT NULL,
+telefone VARCHAR(15) NOT NULL,
+cnpj VARCHAR(14) NOT NULL,
+tipo_longradouro VARCHAR(45) NOT NULL,
+longradouro VARCHAR(100) NOT NULL,
+numero VARCHAR(6) NOT NULL,
+complemento VARCHAR(45) NULL,
+bairro VARCHAR(50) NOT NULL,
+cidade VARCHAR(50) NOT NULL,
+estado VARCHAR(50) NOT NULL,
+uf VARCHAR(2) NOT NULL,
+PRIMARY KEY (id),
+CONSTRAINT uk_fornecedor_cnpj UNIQUE (cnpj)
+);
+
+--Tabela contas_pagar--
+CREATE TABLE IF NOT EXISTS contas_pagar (
+id SERIAL NOT NULL,
+descricao VARCHAR(200) NOT NULL,
+data_compra DATE NOT NULL,
+data_vencimento DATE NOT NULL,
+valor_total DECIMAL(10,2) NOT NULL,
+valor_pago DECIMAL(10,2) NULL,
+valor_atualizado DECIMAL(10,2) NOT NULL,
+valor_total_tela DECIMAL(10,2) NOT NULL,
+status INT NOT NULL,
+fornecedor_id INT NOT NULL,
+cod_fornecedor INT NOT NULL,
+PRIMARY KEY (id),
+CONSTRAINT fk_contas_pagar_fornecedor FOREIGN KEY (fornecedor_id) REFERENCES fornecedor (id)
+);
+
+--Tabela dentista--
+CREATE TABLE IF NOT EXISTS dentista (
+id SERIAL NOT NULL,
+dentista VARCHAR(100) NOT NULL,
+cro VARCHAR(6) NOT NULL,
+PRIMARY KEY (id)
+);
+
+
+--Tabela procedimento--
+CREATE TABLE IF NOT EXISTS procedimento (
+id SERIAL NOT NULL,
+descricao VARCHAR(200) NOT NULL,
+valor DECIMAL(10,2) NOT NULL,
+PRIMARY KEY (id)
+);
+
+--Tabela agendamento--
+CREATE TABLE IF NOT EXISTS agendamento (
+id SERIAL NOT NULL,
+data DATE NOT NULL,
+hora_inicio TIME NOT NULL,
+hora_fim TIME NOT NULL,
+paciente_id INT NOT NULL,
+dentista_id INT NOT NULL,
+procedimento_id INT NOT NULL,
+PRIMARY KEY (id),
+CONSTRAINT fk_agendamento_paciente FOREIGN KEY (paciente_id) REFERENCES paciente (id),
+CONSTRAINT fk_agendamento_dentista FOREIGN KEY (dentista_id) REFERENCES dentista (id),
+CONSTRAINT fk_agendamento_procedimento FOREIGN KEY (procedimento_id) REFERENCES procedimento (id)
+);
+
+--Tabela contas_receber--
+CREATE TABLE IF NOT EXISTS contas_receber (
+id SERIAL NOT NULL,
+data_emissao DATE NOT NULL,
+data_vencimento DATE NOT NULL,
+valor_total DECIMAL(10,2) NOT NULL,
+valor_recebido DECIMAL(10,2) NULL,
+valor_atualizado DECIMAL(10,2) NOT NULL,
+valor_total_tela DECIMAL(10,2) NOT NULL,
+status INT NOT NULL,
+procedimento_id INT NOT NULL,
+paciente_id INT NOT NULL,
+cod_paciente INT NOT NULL,
+PRIMARY KEY (id),
+CONSTRAINT fk_contas_receber_paciente FOREIGN KEY (paciente_id) REFERENCES paciente (id),
+CONSTRAINT fk_contas_receber_procedimento FOREIGN KEY (procedimento_id) REFERENCES procedimento (id)
+);
+
+--Populando tabela usuario --
+INSERT INTO usuario (id, email, senha) VALUES (DEFAULT,'gabifrantz@gmail.com','gdyb21LQTcIANtvYMT7QVQ==');
+INSERT INTO usuario (id, email, senha) VALUES (DEFAULT,'teste@gmail.com','gdyb21LQTcIANtvYMT7QVQ==');
+
+--Populando tabela paciente --
+INSERT INTO paciente (id, nome, data_nascimento, telefone, cpf, tipo_longradouro, longradouro, numero, complemento, bairro, cidade, estado,uf) VALUES (DEFAULT,'Gabriel Frantz','19970703','51996924728','04321246083','Rua','Brigida Fagundes','81','Casa','Morsch','Venâncio Aires','Rio Grande do Sul','RS');
+INSERT INTO paciente (id, nome, data_nascimento, telefone, cpf, tipo_longradouro, longradouro, numero, complemento, bairro, cidade, estado,uf) VALUES (DEFAULT,'João Lindo','19950612','51999999999','02145655522','Rua','Brigida Fagundes','81','Casa','Morsch','Venâncio Aires','Rio Grande do Sul','RS');
+INSERT INTO paciente (id, nome, data_nascimento, telefone, cpf, tipo_longradouro, longradouro, numero, complemento, bairro, cidade, estado,uf) VALUES (DEFAULT,'Deco Americano','19950612','51999999999','02145655523','Rua','Brigida Fagundes','81','Casa','Morsch','Venâncio Aires','Rio Grande do Sul','RS');
+INSERT INTO paciente (id, nome, data_nascimento, telefone, cpf, tipo_longradouro, longradouro, numero, complemento, bairro, cidade, estado,uf) VALUES (DEFAULT,'Juca Balozo','19950612','51999999999','02135655522','Rua','Brigida Fagundes','81','Casa','Morsch','Venâncio Aires','Rio Grande do Sul','RS');
+INSERT INTO paciente (id, nome, data_nascimento, telefone, cpf, tipo_longradouro, longradouro, numero, complemento, bairro, cidade, estado,uf) VALUES (DEFAULT,'Leko Ruivo','19950612','51999999999','02143655522','Rua','Brigida Fagundes','81','Casa','Morsch','Venâncio Aires','Rio Grande do Sul','RS');
+
+--Populando tabela fornecedor --
+INSERT INTO fornecedor (id, nome, email, telefone, cnpj, tipo_longradouro, longradouro, numero, bairro, cidade, estado,uf) VALUES (DEFAULT,'Dental Max LTDA','deltamax@gmail.com','51996924728','09187695000190','Rua','Brigida Loures','82','Jaumm','Venâncio Aires','Rio Grande do Sul','RS');
+INSERT INTO fornecedor (id, nome, email, telefone, cnpj, tipo_longradouro, longradouro, numero, bairro, cidade, estado,uf) VALUES (DEFAULT,'Rei do Creme Dental LTDA','reicreme@hotmail.com','51999999999','09297892000140','Rua','Getulio Vargas','1000','Centro','Caxias do Sul','Rio Grande do Sul','RS');
+INSERT INTO fornecedor (id, nome, email, telefone, cnpj, tipo_longradouro, longradouro, numero, bairro, cidade, estado,uf) VALUES (DEFAULT,'Cadeiras Elega LTDA','caelega@gmail.com','51999999999','20152632000185','Rua','Herval Mirim','5522','Cidade Velha','Porto Alegre','Rio Grande do Sul','RS');
+INSERT INTO fornecedor (id, nome, email, telefone, cnpj, tipo_longradouro, longradouro, numero, bairro, cidade, estado,uf) VALUES (DEFAULT,'SupreX LTDA','suprex@suprex.com','51999999999','52123456000189','Rua','Tiradentes','1000','Cidade Nova','Venâncio Aires','Rio Grande do Sul','RS');
+INSERT INTO fornecedor (id, nome, email, telefone, cnpj, tipo_longradouro, longradouro, numero, bairro, cidade, estado,uf) VALUES (DEFAULT,'Vitech Informática LTDA','vitech@gmail.com','51999999999','22334561000153','Rua','Monte Novo','551122','Gressler','Venâncio Aires','Rio Grande do Sul','RS');
+
+--Populando tabela procedimento --
+INSERT INTO procedimento (id,descricao,valor) VALUES (DEFAULT,'Raio X','150');
+INSERT INTO procedimento (id,descricao,valor) VALUES (DEFAULT,'Limpeza','100');
+INSERT INTO procedimento (id,descricao,valor) VALUES (DEFAULT,'Clareamento','350');
+
+--Populando tabela dentista --
+INSERT INTO dentista (id,dentista,cro) VALUES (DEFAULT,'Thais Gallina','123456');
+INSERT INTO dentista (id,dentista,cro) VALUES (DEFAULT,'Juca Bala','987645');
+INSERT INTO dentista (id,dentista,cro) VALUES (DEFAULT,'Bruno Bola','565231');
+
+--Populando tabela agendamento --
+INSERT INTO agendamento (id, data, hora_inicio, hora_fim, paciente_id, dentista_id, procedimento_id) VALUES (DEFAULT, '2019-06-20','08:00','08:30','1','1','1');
+INSERT INTO agendamento (id, data, hora_inicio, hora_fim, paciente_id, dentista_id, procedimento_id) VALUES (DEFAULT, '2019-06-21','13:30','14:00','2','2','2');
+INSERT INTO agendamento (id, data, hora_inicio, hora_fim, paciente_id, dentista_id, procedimento_id) VALUES (DEFAULT, '2019-06-23','15:30','16:00','3','3','3');
+INSERT INTO agendamento (id, data, hora_inicio, hora_fim, paciente_id, dentista_id, procedimento_id) VALUES (DEFAULT, '2019-06-30','18:30','19:00','4','3','3');
+INSERT INTO agendamento (id, data, hora_inicio, hora_fim, paciente_id, dentista_id, procedimento_id) VALUES (DEFAULT, '2019-06-01','17:30','18:00','5','2','2');
+INSERT INTO agendamento (id, data, hora_inicio, hora_fim, paciente_id, dentista_id, procedimento_id) VALUES (DEFAULT, '2019-06-17','09:30','10:00','2','1','3');
+INSERT INTO agendamento (id, data, hora_inicio, hora_fim, paciente_id, dentista_id, procedimento_id) VALUES (DEFAULT, '2019-06-17','07:30','08:00','1','1','2');
+INSERT INTO agendamento (id, data, hora_inicio, hora_fim, paciente_id, dentista_id, procedimento_id) VALUES (DEFAULT, '2019-06-17','07:30','08:00','1','2','2');
+INSERT INTO agendamento (id, data, hora_inicio, hora_fim, paciente_id, dentista_id, procedimento_id) VALUES (DEFAULT, '2019-06-17','07:30','08:00','1','3','2');
+
+--Populando tabela contas_receber --
+INSERT INTO contas_receber (id,data_emissao,data_vencimento,valor_total,valor_recebido,valor_atualizado,valor_total_tela,status,procedimento_id,paciente_id,cod_paciente) VALUES (DEFAULT,'2019-06-10','2019-06-17','500.00','0.00','500.00','500.00','0','1','1','1');
+INSERT INTO contas_receber (id,data_emissao,data_vencimento,valor_total,valor_recebido,valor_atualizado,valor_total_tela,status,procedimento_id,paciente_id,cod_paciente) VALUES (DEFAULT,'2019-06-10','2019-06-17','100.00','0.00','100.00','100.00','0','2','2','2');
+INSERT INTO contas_receber (id,data_emissao,data_vencimento,valor_total,valor_recebido,valor_atualizado,valor_total_tela,status,procedimento_id,paciente_id,cod_paciente) VALUES (DEFAULT,'2019-06-10','2019-06-17','100.00','100.00','0.00','100.00','1','2','2','2');
+INSERT INTO contas_receber (id,data_emissao,data_vencimento,valor_total,valor_recebido,valor_atualizado,valor_total_tela,status,procedimento_id,paciente_id,cod_paciente) VALUES (DEFAULT,'2019-06-10','2019-06-17','500.00','0.00','500.00','500.00','0','1','3','3');
+INSERT INTO contas_receber (id,data_emissao,data_vencimento,valor_total,valor_recebido,valor_atualizado,valor_total_tela,status,procedimento_id,paciente_id,cod_paciente) VALUES (DEFAULT,'2019-06-10','2019-06-17','300.00','0.00','300.00','300.00','0','3','5','5');
+INSERT INTO contas_receber (id,data_emissao,data_vencimento,valor_total,valor_recebido,valor_atualizado,valor_total_tela,status,procedimento_id,paciente_id,cod_paciente) VALUES (DEFAULT,'2019-06-17','2019-06-20','500.00','0.00','500.00','500.00','0','1','1','1');
+INSERT INTO contas_receber (id,data_emissao,data_vencimento,valor_total,valor_recebido,valor_atualizado,valor_total_tela,status,procedimento_id,paciente_id,cod_paciente) VALUES (DEFAULT,'2019-06-17','2019-06-20','300.00','300.00','0.00','300.00','1','3','4','4');
+
+--Populando tabela contas_pagar --
+INSERT INTO contas_pagar (id,descricao,data_compra,data_vencimento,valor_total,valor_pago,valor_atualizado,valor_total_tela,status,fornecedor_id,cod_fornecedor) VALUES (DEFAULT,'100 Cremes dentais','2019-06-10','2019-06-17','500.00','0.00','500.00','500.00','0','1','1');
+INSERT INTO contas_pagar (id,descricao,data_compra,data_vencimento,valor_total,valor_pago,valor_atualizado,valor_total_tela,status,fornecedor_id,cod_fornecedor) VALUES (DEFAULT,'2 Cadeiras','2019-06-10','2019-06-17','1000.00','0.00','1000.00','1000.00','0','2','2');
+INSERT INTO contas_pagar (id,descricao,data_compra,data_vencimento,valor_total,valor_pago,valor_atualizado,valor_total_tela,status,fornecedor_id,cod_fornecedor) VALUES (DEFAULT,'200 Pares de luvas','2019-06-10','2019-06-17','100.00','100.00','0.00','100.00','1','2','2');
+INSERT INTO contas_pagar (id,descricao,data_compra,data_vencimento,valor_total,valor_pago,valor_atualizado,valor_total_tela,status,fornecedor_id,cod_fornecedor) VALUES (DEFAULT,'50 Caixinhas de fio dental','2019-06-10','2019-06-17','200.00','0.00','200.00','200.00','0','3','3');
+INSERT INTO contas_pagar (id,descricao,data_compra,data_vencimento,valor_total,valor_pago,valor_atualizado,valor_total_tela,status,fornecedor_id,cod_fornecedor) VALUES (DEFAULT,'70 Resinas','2019-06-10','2019-06-17','300.00','0.00','300.00','300.00','0','5','5');
+INSERT INTO contas_pagar (id,descricao,data_compra,data_vencimento,valor_total,valor_pago,valor_atualizado,valor_total_tela,status,fornecedor_id,cod_fornecedor) VALUES (DEFAULT,'30 Bisnagas','2019-06-17','2019-06-20','500.00','0.00','500.00','500.00','0','1','1');
+INSERT INTO contas_pagar (id,descricao,data_compra,data_vencimento,valor_total,valor_pago,valor_atualizado,valor_total_tela,status,fornecedor_id,cod_fornecedor) VALUES (DEFAULT,'1 Raio X','2019-06-17','2019-06-20','200.00','200.00','0.00','200.00','1','4','4')

@@ -1,0 +1,11 @@
+        String nome = "" + tblAgendaPaciente.getValueAt(tblAgendaPaciente.getSelectedRow(), 1);
+        try {
+            Statement st = ConexaoBD.getInstance().getConnection().createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
+            String sql = "SELECT * FROM paciente WHERE nome='" + nome + "'";
+            System.out.println("Sql: " + sql);
+            resultadoQ = st.executeQuery(sql);
+            resultadoQ.first();
+            txtBuscarPaciente.setText(resultadoQ.getString("nome"));
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Erro ao cadastrar dentista: " + ex);
+        }
